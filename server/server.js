@@ -24,10 +24,24 @@ app.get('/health', (req, res) => {
   res.status(200).json({ success: true, message: 'Server is healthy!' });
 });
 
-// 404 Route handler
-app.use((req, res, next) => {
-  res.status(404).json({ success: false, message: 'Endpoint not found' });
-});
+const path = require('path');
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
+    } else {
+      res.status(404).json({ success: false, message: 'API Endpoint not found' });
+    }
+  });
+} else {
+  // 404 Route handler
+  app.use((req, res, next) => {
+    res.status(404).json({ success: false, message: 'Endpoint not found' });
+  });
+}
 
 // Global Error Handler
 app.use((err, req, res, next) => {
