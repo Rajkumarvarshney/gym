@@ -113,7 +113,7 @@ const Footer = () => {
 
         {/* Legal Copyright Footer */}
         <div className="border-t border-gym-border pt-8 text-center text-xs text-gray-600">
-          <p>© {new Date().getFullYear()} FitZone Gym. All rights reserved. Premium Design by Antigravity.</p>
+          <p>© {new Date().getFullYear()} FitZone Gym. All rights reserved. Premium Design by Rajkumar Varshney and Yash Garg.</p>
         </div>
       </div>
     </footer>
